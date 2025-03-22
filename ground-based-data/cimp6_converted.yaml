@@ -1,0 +1,12 @@
+- options:
+    distrib: false
+    latest: true
+    replica: null
+    retracted: false
+  selection:
+    frequency: mon
+    grid_label: gm
+    mip_era: CIMP6Plus
+    project: Input4MIPs
+    variable_id: co2
+  tracked: true

@@ -1,0 +1,6 @@
+# CO2 data from input4MIPS project; era: CIMP6+, monthly average
+project=Input4MIPs
+mip_era=CIMP6Plus
+variable_id=co2
+frequency=mon
+grid_label=gm
