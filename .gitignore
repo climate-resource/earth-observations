@@ -1,2 +1,5 @@
 .venv
 datasets/
+/satellite-data/plotting/saved_plots/
+/satellite-data/api-requests/downloads/
+satellite-data.zip
