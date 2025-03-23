@@ -1,0 +1,73 @@
+#######
+# PSEUDO MAKEFILE
+# this is a pseudo MAKEFILE for recording the workflow for
+# downloading data from esgf. The focus here is on downloading
+# monthly CO2 data from the input4MIPs project
+#######
+
+# create environment
+uv venv --python 3.11
+
+# activate environment
+.venv/Scripts/activate
+
+# install esgpull
+uv pip install git+https://github.com/ESGF/esgf-download
+uv run esgpull self install
+
+# configure esgpull
+uv run esgpull config api.index_node esgf-node.llnl.gov
+
+# search for data set from input4MIPs project, monthly co2 data
+esgpull search project:input4MIPs variable_id:co2 frequency:mon grid_label:gm
+# output:
+# Found 2 datasets.
+#  id │                                dataset                                │ # │  size
+# ════╪═══════════════════════════════════════════════════════════════════════╪═══╪═════════
+#   0 │ input4MIPs.CMIP7.CMIP.CR.CR-CMIP-1-0-0.atmos.mon.co2.gm.v20250228     │ 3 │ 1.8 MiB
+#   1 │ input4MIPs.CMIP6Plus.CMIP.CR.CR-CMIP-0-4-0.atmos.mon.co2.gm.v20241205 │ 3 │ 1.8 MiB
+
+# add data to query list
+esgpull add project:input4MIPs variable_id:co2 frequency:mon grid_label:gm --track
+# output:
+# <2a7478>
+# └── distrib:     False
+#     latest:      True
+#     replica:     None
+#     retracted:   False
+#     frequency:   mon
+#     grid_label:  gm
+#     project:     input4MIPs
+#     variable_id: co2
+# New query added: <2a7478>
+# 👍 1 new query added.
+
+# update queries
+esgpull update 2a7478
+# output:
+# <2a7478> -> 7 files.
+# 7 files found.
+# Updating <2a7478> with 7 new files (5.5 MiB).
+# Send to download queue? [y/n/show]: y
+# <2a7478> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+
+# download data in cue
+esgpull download 2a7478
+# output:
+# <2a7478>
+# └── distrib:     False
+#     latest:      True
+#     replica:     None
+#     retracted:   False
+#     frequency:   mon
+#     grid_label:  gm
+#     project:     input4MIPs
+#     variable_id: co2
+#     files:       0 bytes / 5.5 MiB [0/7]
+# <667805> · 264.2 kiB · 156.6 kiB/s · esgf-data2.llnl.gov
+# <9b36cf> · 679.9 kiB · 356.7 kiB/s · esgf-data2.llnl.gov
+# <1ccad3> · 901.2 kiB · 450.6 kiB/s · esgf-data2.llnl.gov
+# <22a775> · 908.1 kiB · 421.2 kiB/s · esgf-data2.llnl.gov
+# <b2488c> · 271.0 kiB · 598.2 kiB/s · esgf-data2.llnl.gov
+# <abe7d0> · 1.8 MiB · 761.9 kiB/s · esgf-data2.llnl.gov
+# <fbc698> · 686.7 kiB · 1.1 MiB/s · esgf-data2.llnl.gov
