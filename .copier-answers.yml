@@ -1,0 +1,17 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v0.12.3
+_src_path: gl:openscm/copier-core-python-repository
+conda_release: false
+email: florence.bockting@climate-resource.com
+include_cli: false
+name: Florence Bockting
+notebook_based_docs: true
+package_manager: uv
+pandas_doctests: false
+plot_dependencies: true
+project_description_short: Usage of earth observations for CMIP7 data
+project_name_human: earth-observations
+project_name_pip: earth-observations
+project_name_python: earth_observations
+project_url: https://github.com/climate-resource/earth-observations
+track_lock_file: true
